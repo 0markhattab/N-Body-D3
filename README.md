@@ -12,21 +12,6 @@ A minimalist, browser‑based Newtonian gravity demo that animates 4 000 parti
 
 ---
 
-  File layout
-
-
-nbody-d3/
-├─ index.html    # page skeleton + UI stub
-├─ style.css     # dark theme + slider styles
-├─ physics.js    # pure physics (Velocity‑Verlet, O(N²))
-├─ render.js     # D3 selections, animation loop
-
-
-
-> One‑file sanity check:
-> If you prefer, `demo.html` is a self‑contained version with all code inlined. Pop it open to confirm your browser runs the sim.
-
----
 
 #
 ## How it works
