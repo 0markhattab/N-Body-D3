@@ -27,9 +27,9 @@ A minimalist, browser‑based Newtonian gravity demo that animates 4 000 parti
 
 ### Renderer (`render.js`)
 
-- \*\*SVG \*\*\`\` for each particle (radius ≈ 1 px).
+- SVG  for each particle (radius ≈ 1 px).
 - Colour map – `d3.interpolateCool(id/N)` gives blue‑to‑yellow gradient.
-- \`\` calls `step()` + DOM updates \~16 ms.
+- calls `step()` + DOM updates \~16 ms.
 
 
 
