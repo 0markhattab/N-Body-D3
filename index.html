@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>N-Body in D3</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div id="controls">
+    <label>Gravity G
+      <input id="gSlider" type="range" min="0" max="1e-3" step="1e-5" value="0.0002">
+    </label>
+    <button id="toggle">Pause</button>
+  </div>
+
+  <!-- SVG will be appended here by render.js -->
+  <script type="module" src="render.js"></script>
+</body>
+</html>

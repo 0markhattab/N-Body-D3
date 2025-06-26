@@ -1,0 +1,50 @@
+<!DOCTYPE html><meta charset="utf-8">
+<title>N-Body one-file demo</title>
+<style>
+  body{margin:0;background:#0a0d16;color:#d8dee9;font-family:sans-serif}
+  svg{display:block;width:100vw;height:100vh}
+</style>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<body><script>
+const N  = 4000, box = Math.min(innerWidth, innerHeight), dt = 0.8, G = 2e-4;
+const eps2 = 100;
+
+const rand = d3.randomNormal(0, box/8);
+const particles = d3.range(N).map(id=>({
+  id, x:Math.random()*box-box/2, y:Math.random()*box-box/2,
+  vx:rand(), vy:rand(), ax:0, ay:0, m:1
+}));
+
+/* ---- SVG ---- */
+const svg = d3.select("body").append("svg");
+const g   = svg.append("g").attr("transform",
+             `translate(${innerWidth/2},${innerHeight/2})`);
+const node = g.selectAll("circle")
+  .data(particles).enter().append("circle")
+  .attr("r",0.9).attr("fill",d=>d3.interpolateCool(d.id/N));
+
+/* ---- physics + render ---- */
+d3.timer(()=>{
+  // zero acc
+  for(const p of particles) p.ax=p.ay=0;
+  // pairwise forces
+  for(let i=0;i<N;++i){
+    const a=particles[i];
+    for(let j=i+1;j<N;++j){
+      const b=particles[j];
+      const dx=b.x-a.x, dy=b.y-a.y;
+      const dist2=dx*dx+dy*dy+eps2, inv=G/Math.pow(dist2,1.5);
+      const ax=dx*inv, ay=dy*inv;
+      a.ax+=ax; a.ay+=ay; b.ax-=ax; b.ay-=ay;
+    }
+  }
+  // velocity-Verlet
+  for(const p of particles){
+    p.vx+=p.ax*dt/2; p.vy+=p.ay*dt/2;
+    p.x+=p.vx*dt;   p.y+=p.vy*dt;
+    p.vx+=p.ax*dt/2; p.vy+=p.ay*dt/2;
+  }
+  // draw
+  node.attr("cx",d=>d.x).attr("cy",d=>d.y);
+});
+</script>
